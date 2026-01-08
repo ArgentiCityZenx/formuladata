@@ -1,20 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FormulaData</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Drivers Showcase</title>
+
+  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --f1-red: #e10600;
+      --bg-main: #f0f4f8;
+      --card-bg: #ffffff;
+      --text-main: #111;
+      --text-muted: #555;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      padding: 2rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: 3rem;
+      color: var(--text-main);
+    }
+    .header p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .drivers-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .driver-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .driver-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .driver-img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 1rem;
+    }
+
+    .driver-name {
+      font-family: "Oswald", sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.25rem;
+    }
+    .driver-team {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .driver-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .driver-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .driver-meta span {
+      background: #eef2f5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 700px) {
+      .header h1 { font-size: 2rem; }
+      body { padding: 1rem; }
+    }
+  </style>
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/index.jsx"></script>
-</body>
 
+  <div class="header">
+    <h1>Formula 1 Drivers</h1>
+    <p>Data powered by OpenF1 API</p>
+  </div>
+
+  <div id="drivers" class="drivers-container"></div>
+
+  <script>
+    async function loadDrivers() {
+      try {
+        const resp = await fetch("https://api.openf1.org/v1/drivers?session_key=9158");
+        const data = await resp.json();
+        renderDrivers(data);
+      } catch (e) {
+        document.getElementById("drivers").innerHTML = "<p>Error loading drivers</p>";
+      }
+    }
+
+    function renderDrivers(drivers) {
+      const container = document.getElementById("drivers");
+      container.innerHTML = "";
+
+      drivers.forEach(d => {
+        const card = document.createElement("div");
+        card.className = "driver-card";
+
+        const imgUrl = d.headshot_url 
+          || "https://via.placeholder.com/300x180?text=No+Image";
+
+        card.innerHTML = `
+          <img class="driver-img" src="${imgUrl}" alt="${d.full_name}">
+
+          <div class="driver-name">${d.full_name}</div>
+          <div class="driver-team">${d.team_name}</div>
+
+          <div class="driver-info">
+            <div><strong>#${d.driver_number}</strong></div>
+            <div>${d.country_code}</div>
+          </div>
+
+          <div class="driver-meta">
+            <span>${d.name_acronym}</span>
+            <span style="background:#${d.team_colour}; color:#fff;">Team Color</span>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    loadDrivers();
+  </script>
+
+</body>
 </html>
