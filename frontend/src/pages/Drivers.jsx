@@ -2,45 +2,50 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Drivers() {
-  const [pilotos, setPilotos] = useState([]);
+    const [pilotos, setPilotos] = useState([]);
 
-  useEffect(() => {
-    fetch("https://formuladata.onrender.com/api/drivers")
-      .then(r => {
-        if (!r.ok) throw new Error("fetch failed");
-        return r.json();
-      })
-      .then(data => {
-        if (!Array.isArray(data)) {
-          setPilotos([]);
-          return;
-        }
-        setPilotos(data);
-      })
-      .catch(() => setPilotos([]));
-  }, []);
+    useEffect(() => {
+        fetch("https://formuladata.onrender.com/api/drivers")
+            .then(r => {
+                if (!r.ok) throw new Error("fetch failed");
+                return r.json();
+            })
+            .then(data => {
+                if (!Array.isArray(data)) {
+                    setPilotos([]);
+                    return;
+                }
+                setPilotos(data);
+            })
+            .catch(() => setPilotos([]));
+    }, []);
 
-  if (!Array.isArray(pilotos)) {
-    return <p>Error loading drivers</p>;
-  }
+    if (!Array.isArray(pilotos)) {
+        return <p>Error loading drivers</p>;
+    }
 
-  if (pilotos.length === 0) {
-    return <p>Loading drivers...</p>;
-  }
+    if (pilotos.length === 0) {
+        return <p>Loading drivers...</p>;
+    }
 
-  return (
-    <div style={{ padding: "2rem" }}>
-      <h1>F1 Drivers</h1>
+    return (
+        <div className="drivers-page">
+            <h1 className="drivers-title">Drivers</h1>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {pilotos.map(p => (
-          <li key={p.driver_number}>
-            <Link to={`/driver/${p.driver_number}`}>
-              {p.full_name} ({p.team_name})
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+            <div className="drivers-grid">
+                {pilotos.map(p => (
+                    <div className="driver-card" key={p.driver_number}>
+                        <Link className="driver-link" to={`/driver/${p.driver_number}`}>
+                            <div className="driver-left">
+                                <span className="driver-name">{p.full_name}</span>
+                                <span className="driver-team">{p.team_name}</span>
+                            </div>
+
+                            <span className="driver-number">{p.driver_number}</span>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 }

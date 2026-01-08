@@ -1,52 +1,105 @@
 .drivers-page {
-  padding: 2rem;
-  max-width: 900px;
+  padding: 3rem 1.5rem;
+  max-width: 1100px;
   margin: auto;
 }
 
 .drivers-title {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  border-left: 6px solid var(--f1-red);
-  padding-left: 1rem;
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+  border-left: 8px solid var(--f1-red);
+  padding-left: 1.25rem;
+  text-transform: uppercase;
 }
 
-.drivers-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.drivers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
 }
 
-.driver-item {
-  background: var(--bg-card);
-  margin-bottom: 0.75rem;
-  padding: 1rem 1.25rem;
-  border-radius: 8px;
-  transition: transform 0.15s ease, background 0.15s ease;
+.driver-card {
+  background: linear-gradient(
+    145deg,
+    var(--bg-card),
+    #181818
+  );
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.driver-item:hover {
-  transform: translateX(6px);
-  background: #242424;
+.driver-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.driver-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+.driver-card:hover::before {
+  opacity: 1;
 }
 
 .driver-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.driver-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .driver-name {
   font-family: "Oswald", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.03em;
 }
 
 .driver-team {
+  font-size: 0.85rem;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.driver-number {
+  font-family: "Oswald", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  opacity: 0.08;
+}
+
+.driver-flag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.85rem;
+  opacity: 0.5;
 }
 
 .loading {
   color: var(--text-muted);
   font-style: italic;
+  text-align: center;
+  margin-top: 3rem;
 }
