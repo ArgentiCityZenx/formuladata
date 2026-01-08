@@ -1,89 +1,144 @@
+:root {
+  --f1-red: #e10600;
+  --bg-main: #0b0b0b;
+  --bg-card: #151515;
+  --bg-card-hover: #1c1c1c;
+  --text-main: #ffffff;
+  --text-muted: #9a9a9a;
+  --border-soft: rgba(255,255,255,0.08);
+}
+
 .drivers-page {
-  padding: 3rem 2rem;
-  max-width: 1300px;
-  margin: auto;
+  padding: 3rem 4rem;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0b0b0b 0%, #0f0f0f 100%);
+}
+
+.drivers-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 1.5rem;
 }
 
 .drivers-title {
-  font-family: "Oswald", sans-serif;
   font-size: 3rem;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.drivers-subtitle {
-  text-align: center;
-  color: var(--text-muted);
-  margin-bottom: 3rem;
-}
-
-.drivers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.75rem;
-}
-
-.driver-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 1.5rem 1.25rem 1.75rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  font-weight: 700;
+  letter-spacing: 1px;
   position: relative;
-  text-align: center;
 }
 
-.driver-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+.drivers-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: var(--f1-red);
 }
 
-.driver-image {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-}
-
-.driver-name {
-  font-family: "Oswald", sans-serif;
-  font-size: 1.35rem;
-  letter-spacing: 0.04em;
-}
-
-.driver-team {
+.drivers-count {
+  color: var(--text-muted);
   font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 0.75rem;
+  letter-spacing: 1px;
 }
 
-.driver-divider {
-  width: 40px;
-  height: 3px;
-  margin: 0.75rem auto 1rem;
-  border-radius: 2px;
+/* GRID */
+.drivers-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.driver-meta {
+/* CARD */
+.driver-item {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border-soft);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.driver-item:hover {
+  transform: translateY(-6px);
+  background: var(--bg-card-hover);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* LINK */
+.driver-link {
+  text-decoration: none;
+  color: var(--text-main);
   display: flex;
-  justify-content: center;
-  gap: 1.25rem;
-  font-size: 0.85rem;
-  color: #333;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
-.driver-meta span {
-  background: #f2f2f2;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  font-weight: 600;
+/* HEADER DRIVER */
+.driver-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .driver-number {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--f1-red);
+  opacity: 0.9;
+}
+
+/* NAME */
+.driver-name {
   font-family: "Oswald", sans-serif;
-  font-size: 2.25rem;
-  opacity: 0.08;
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+}
+
+/* TEAM */
+.driver-team {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.4px;
+}
+
+/* FOOTER LINE */
+.driver-footer {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-soft);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.view-profile {
+  font-size: 0.75rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--f1-red);
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-top: 4rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .drivers-page {
+    padding: 2rem;
+  }
+
+  .drivers-title {
+    font-size: 2.2rem;
+  }
 }
