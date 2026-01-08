@@ -1,37 +1,42 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./Drivers.css";
 
 export default function Drivers() {
   const [pilotos, setPilotos] = useState([]);
 
   useEffect(() => {
     fetch("https://formuladata.onrender.com/api/drivers")
-      .then(r => r.json())
-      .then(data => setPilotos(data.drivers));
+      .then(r => {
+        if (!r.ok) throw new Error("fetch failed");
+        return r.json();
+      })
+      .then(data => {
+        if (!Array.isArray(data)) {
+          setPilotos([]);
+          return;
+        }
+        setPilotos(data);
+      })
+      .catch(() => setPilotos([]));
   }, []);
 
+  if (!Array.isArray(pilotos)) {
+    return <p>Error cargando pilotos</p>;
+  }
+
+  if (pilotos.length === 0) {
+    return <p>Cargando pilotos...</p>;
+  }
+
   return (
-    <div className="drivers-page">
-      <h1 className="drivers-title">F1 Drivers</h1>
+    <div style={{ padding: "2rem" }}>
+      <h1>F1 Drivers</h1>
 
-      {pilotos.length === 0 && (
-        <p className="loading">Loading drivers...</p>
-      )}
-
-      <ul className="drivers-list">
+      <ul style={{ listStyle: "none", padding: 0 }}>
         {pilotos.map(p => (
-          <li key={p.driver_number} className="driver-item">
-            <Link
-              to={`/driver/${p.driver_number}`}
-              className="driver-link"
-            >
-              <span className="driver-name">
-                #{p.driver_number} {p.full_name}
-              </span>
-              <span className="driver-team">
-                {p.team_name}
-              </span>
+          <li key={p.driver_number}>
+            <Link to={`/driver/${p.driver_number}`}>
+              {p.full_name} ({p.team_name})
             </Link>
           </li>
         ))}
