@@ -21,11 +21,11 @@ export default function Drivers() {
   }, []);
 
   if (!Array.isArray(pilotos)) {
-    return <p>Error cargando pilotos</p>;
+    return <p>Error loading drivers</p>;
   }
 
   if (pilotos.length === 0) {
-    return <p>Cargando pilotos...</p>;
+    return <p>Loading drivers...</p>;
   }
 
   return (
