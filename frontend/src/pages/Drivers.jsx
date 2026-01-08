@@ -30,19 +30,34 @@ export default function Drivers() {
 
     return (
         <div className="drivers-page">
-            <h1 className="drivers-title">Drivers</h1>
+            <h1 className="drivers-title">Formula 1 Drivers</h1>
+            <p className="drivers-subtitle">
+                Complete driver dataset powered by OpenF1
+            </p>
 
             <div className="drivers-grid">
                 {pilotos.map(p => (
                     <div className="driver-card" key={p.driver_number}>
-                        <Link className="driver-link" to={`/driver/${p.driver_number}`}>
-                            <div className="driver-left">
-                                <span className="driver-name">{p.full_name}</span>
-                                <span className="driver-team">{p.team_name}</span>
-                            </div>
+                        <span className="driver-number">#{p.driver_number}</span>
 
-                            <span className="driver-number">{p.driver_number}</span>
-                        </Link>
+                        <img
+                            className="driver-image"
+                            src={p.headshot_url || "/placeholder.png"}
+                            alt={p.full_name}
+                        />
+
+                        <div className="driver-name">{p.full_name}</div>
+                        <div className="driver-team">{p.team_name}</div>
+
+                        <div
+                            className="driver-divider"
+                            style={{ background: `#${p.team_colour}` }}
+                        />
+
+                        <div className="driver-meta">
+                            <span>{p.country_code}</span>
+                            <span>{p.name_acronym}</span>
+                        </div>
                     </div>
                 ))}
             </div>
