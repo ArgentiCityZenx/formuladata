@@ -9,7 +9,7 @@ const port = 4000;
 const OPENF1_BASE = "https://api.openf1.org/v1";
 
 app.get("/api/drivers", async (req, res) => {
-  const url = `${OPENF1_BASE}/drivers`;
+  const url = `${OPENF1_BASE}/drivers?session_key=9158`;
   const response = await fetch(url);
   const data = await response.json();
   res.json(data);
@@ -17,7 +17,7 @@ app.get("/api/drivers", async (req, res) => {
 
 app.get("/api/driver/:number", async (req, res) => {
   const number = req.params.number;
-  const url = `${OPENF1_BASE}/drivers?driver_number=${number}`;
+  const url = `${OPENF1_BASE}/drivers?driver_number=${number}&session_key=9158`;
   const response = await fetch(url);
   const data = await response.json();
   res.json(data[0] || null);
