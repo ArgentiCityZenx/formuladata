@@ -1,6 +1,6 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./Drivers.css";
 
 export default function Drivers() {
   const [pilotos, setPilotos] = useState([]);
@@ -8,17 +8,30 @@ export default function Drivers() {
   useEffect(() => {
     fetch("https://formuladata.onrender.com/api/drivers")
       .then(r => r.json())
-      .then(setPilotos);
+      .then(data => setPilotos(data.drivers));
   }, []);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>F1 Drivers</h1>
-      <ul style={{ listStyle: "none", padding: 0 }}>
+    <div className="drivers-page">
+      <h1 className="drivers-title">F1 Drivers</h1>
+
+      {pilotos.length === 0 && (
+        <p className="loading">Loading drivers...</p>
+      )}
+
+      <ul className="drivers-list">
         {pilotos.map(p => (
-          <li key={p.driver_number} style={{ margin: "1rem 0" }}>
-            <Link to={`/driver/${p.driver_number}`}>
-              {p.full_name} ({p.team_name})
+          <li key={p.driver_number} className="driver-item">
+            <Link
+              to={`/driver/${p.driver_number}`}
+              className="driver-link"
+            >
+              <span className="driver-name">
+                #{p.driver_number} {p.full_name}
+              </span>
+              <span className="driver-team">
+                {p.team_name}
+              </span>
             </Link>
           </li>
         ))}

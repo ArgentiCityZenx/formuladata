@@ -1,0 +1,29 @@
+:root {
+  --f1-red: #e10600;
+  --bg-dark: #0f0f0f;
+  --bg-card: #1c1c1c;
+  --text-main: #ffffff;
+  --text-muted: #b3b3b3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+}
+
+h1, h2, h3 {
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

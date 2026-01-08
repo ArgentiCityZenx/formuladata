@@ -1,0 +1,52 @@
+.drivers-page {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+.drivers-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 6px solid var(--f1-red);
+  padding-left: 1rem;
+}
+
+.drivers-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.driver-item {
+  background: var(--bg-card);
+  margin-bottom: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.driver-item:hover {
+  transform: translateX(6px);
+  background: #242424;
+}
+
+.driver-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.driver-name {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+}
+
+.driver-team {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.loading {
+  color: var(--text-muted);
+  font-style: italic;
+}
